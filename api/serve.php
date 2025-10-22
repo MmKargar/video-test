@@ -28,8 +28,15 @@ if (!file_exists($videoFile)) {
 $fileSize = filesize($videoFile);
 $mimeType = 'video/webm';
 
+error_log("🎥 Video request - File size: " . number_format($fileSize) . " bytes");
+
+// Vercel has a 4.5MB response limit
+// We limit chunks to 3MB to be safe
+$maxChunkSize = 3 * 1024 * 1024; // 3MB
+
 // Get the range header
 $range = isset($_SERVER['HTTP_RANGE']) ? $_SERVER['HTTP_RANGE'] : null;
+error_log("🎥 Range header: " . ($range ? $range : "none"));
 
 if ($range) {
     // Parse the range header
@@ -45,6 +52,12 @@ if ($range) {
         $start = intval($start);
         $end = ($end === '') ? ($fileSize - 1) : intval($end);
 
+        // Limit chunk size to stay within Vercel limits
+        if (($end - $start + 1) > $maxChunkSize) {
+            $end = $start + $maxChunkSize - 1;
+            error_log("🎥 Limiting chunk to $maxChunkSize bytes");
+        }
+
         // Validate range
         if ($start > $end || $start < 0 || $end >= $fileSize) {
             header('HTTP/1.1 416 Requested Range Not Satisfiable');
@@ -53,6 +66,7 @@ if ($range) {
         }
 
         $length = $end - $start + 1;
+        error_log("🎥 Serving range: $start-$end ($length bytes)");
 
         // Send partial content response
         http_response_code(206);
@@ -80,14 +94,31 @@ if ($range) {
         fclose($fp);
     }
 } else {
-    // No range requested, send entire file
-    header('HTTP/1.1 200 OK');
+    // No range requested - send initial chunk limited to Vercel's size
+    $chunkEnd = min($maxChunkSize - 1, $fileSize - 1);
+    $chunkLength = $chunkEnd + 1;
+
+    error_log("🎥 No range request, sending initial chunk: 0-$chunkEnd ($chunkLength bytes)");
+
+    http_response_code(206);
     header('Content-Type: ' . $mimeType);
-    header('Content-Length: ' . $fileSize);
+    header('Content-Length: ' . $chunkLength);
+    header("Content-Range: bytes 0-$chunkEnd/$fileSize");
     header('Accept-Ranges: bytes');
     header('Cache-Control: no-cache');
 
-    readfile($videoFile);
+    $fp = fopen($videoFile, 'rb');
+    $remaining = $chunkLength;
+    $readSize = 8192; // 8KB chunks
+
+    while ($remaining > 0 && !feof($fp)) {
+        $read = min($readSize, $remaining);
+        echo fread($fp, $read);
+        $remaining -= $read;
+        flush();
+    }
+
+    fclose($fp);
 }
 
 exit;
