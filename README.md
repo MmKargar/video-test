@@ -6,14 +6,14 @@ Simple HTML video player for testing WebM playback on iOS devices.
 
 1. **Start the local server:**
    ```bash
-   php -S 0.0.0.0:2020
+   php -S 0.0.0.0:2000
    ```
 
 2. **Access from iOS device:**
    - Find your computer's IP address (e.g., `192.168.1.100`)
    - Open Safari on your iOS device
-   - Navigate to `http://YOUR_IP:2020`
-   - Example: `http://192.168.1.100:2020`
+   - Navigate to `http://YOUR_IP:2000`
+   - Example: `http://192.168.1.100:2000`
 
 ## iOS Compatibility
 
