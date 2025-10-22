@@ -17,6 +17,7 @@ Simple HTML video player for testing WebM playback on iOS devices.
 
 ## iOS Compatibility
 
+- **Base One**: https://caniuse.com/webm
 - **iOS 17.4+**: Full WebM support
 - **iOS 18+**: Full WebM support
 - **iOS 14.0-17.3**: Partial support (may not work reliably)
