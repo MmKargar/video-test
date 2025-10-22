@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebM Video Player - iOS Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .info {
+            background-color: #f0f8ff;
+            border-left: 4px solid #007aff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .info h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #007aff;
+        }
+
+        .info p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .info ul {
+            margin-top: 10px;
+            margin-left: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .info li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WebM Video Player Test</h1>
+
+        <div class="video-wrapper">
+            <video
+                controls
+                playsinline
+                preload="metadata"
+                poster=""
+            >
+                <source src="fe3d32918a6f41c5b429472794f8ba69.webm" type="video/webm">
+                Your browser does not support the video tag or WebM format.
+            </video>
+        </div>
+
+        <div class="info">
+            <h2>iOS WebM Compatibility</h2>
+            <p><strong>Supported on:</strong></p>
+            <ul>
+                <li>iOS 17.4 and later (full support)</li>
+                <li>iOS 18 and later (full support)</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Note:</strong> iOS versions 14.0-17.3 have partial support. WebM does not support alpha transparency on iOS.</p>
+        </div>
+    </div>
+</body>
+</html>
