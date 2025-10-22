@@ -15,11 +15,6 @@ Simple HTML video player for testing WebM playback on iOS devices.
    - Navigate to `http://YOUR_IP:2020`
    - Example: `http://192.168.1.100:2020`
 
-3. **Test video playback:**
-   - The video player should load automatically
-   - Tap play to test WebM playback
-   - Use native iOS video controls
-
 ## iOS Compatibility
 
 - **iOS 17.4+**: Full WebM support
