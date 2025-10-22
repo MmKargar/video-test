@@ -2,11 +2,6 @@
 
 Simple HTML video player for testing WebM playback on iOS devices.
 
-## Requirements
-
-- PHP CLI (for local server)
-- iOS device with iOS 17.4+ or iOS 18+ for full WebM support
-
 ## Testing Instructions
 
 1. **Start the local server:**
@@ -31,9 +26,3 @@ Simple HTML video player for testing WebM playback on iOS devices.
 - **iOS 18+**: Full WebM support
 - **iOS 14.0-17.3**: Partial support (may not work reliably)
 - **Note**: WebM alpha transparency is not supported on iOS
-
-## Files
-
-- `index.html` - HTML video player (pure HTML/CSS, no external dependencies)
-- `fe3d32918a6f41c5b429472794f8ba69.webm` - Test video file
-- `README.md` - This file
